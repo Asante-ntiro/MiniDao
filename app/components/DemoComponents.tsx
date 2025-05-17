@@ -112,10 +112,10 @@ function Card({
 }
 
 type FeaturesProps = {
-  setActiveTab: (tab: string) => void;
+  setActiveTabAction: (tab: string) => void;
 };
 
-export function Features({ setActiveTab }: FeaturesProps) {
+export function Features({ setActiveTabAction }: FeaturesProps) {
   return (
     <div className="space-y-6 animate-fade-in">
       <Card title="Key Features">
@@ -123,29 +123,36 @@ export function Features({ setActiveTab }: FeaturesProps) {
           <li className="flex items-start">
             <Icon name="check" className="text-[var(--app-accent)] mt-1 mr-2" />
             <span className="text-[var(--app-foreground-muted)]">
-              Minimalistic and beautiful UI design
+              Local Verification Mechanism
             </span>
           </li>
           <li className="flex items-start">
             <Icon name="check" className="text-[var(--app-accent)] mt-1 mr-2" />
             <span className="text-[var(--app-foreground-muted)]">
-              Responsive layout for all devices
+              Tiered Governance Rights
             </span>
           </li>
           <li className="flex items-start">
             <Icon name="check" className="text-[var(--app-accent)] mt-1 mr-2" />
             <span className="text-[var(--app-foreground-muted)]">
-              Dark mode support
+              Transparent Treasury Management
             </span>
           </li>
           <li className="flex items-start">
             <Icon name="check" className="text-[var(--app-accent)] mt-1 mr-2" />
             <span className="text-[var(--app-foreground-muted)]">
-              OnchainKit integration
+              Structured process for submitting, discussing, and voting on local initiatives
             </span>
           </li>
+          <li className="flex items-start">
+            <Icon name="check" className="text-[var(--app-accent)] mt-1 mr-2" />
+            <span className="text-[var(--app-foreground-muted)]">
+              Mobile-First Interface
+            </span>
+          </li>
+
         </ul>
-        <Button variant="outline" onClick={() => setActiveTab("home")}>
+        <Button variant="outline" onClick={() => setActiveTabAction("home")}>
           Back to Home
         </Button>
       </Card>
@@ -154,18 +161,18 @@ export function Features({ setActiveTab }: FeaturesProps) {
 }
 
 type HomeProps = {
-  setActiveTab: (tab: string) => void;
+  setActiveTabAction: (tab: string) => void;
 };
 
-export function Home({ setActiveTab }: HomeProps) {
+export function Home({ setActiveTabAction }: HomeProps) {
   return (
     <div className="space-y-6 animate-fade-in">
-      <Card title="My First Mini App">
+      <Card title="Mini DAO">
         <p className="text-[var(--app-foreground-muted)] mb-4">
-          This is a minimalistic Mini App built with OnchainKit components.
+          Fund Local, Vote Together: Dar's Community Treasury, Powered by Your Voice
         </p>
         <Button
-          onClick={() => setActiveTab("features")}
+          onClick={() => setActiveTabAction("features")}
           icon={<Icon name="arrow-right" size="sm" />}
         >
           Explore Features

@@ -27,7 +27,7 @@ import { Features } from "./components/DemoComponents";
 export default function App() {
   const { setFrameReady, isFrameReady, context } = useMiniKit();
   const [frameAdded, setFrameAdded] = useState(false);
-  const [activeTab, setActiveTab] = useState("home");
+  const [activeTab, setActiveTabAction] = useState("home");
 
   const addFrame = useAddFrame();
   const openUrl = useOpenUrl();
@@ -74,6 +74,24 @@ export default function App() {
     <div className="flex flex-col min-h-screen font-sans text-[var(--app-foreground)] mini-app-theme from-[var(--app-background)] to-[var(--app-gray)]">
       <div className="w-full max-w-md mx-auto px-4 py-3">
         <header className="flex justify-between items-center mb-3 h-11">
+
+          <div>{saveFrameButton}</div>
+        </header>
+
+        <main className="flex-1">
+          {activeTab === "home" && <Home setActiveTabAction={setActiveTabAction} />}
+          {activeTab === "features" && <Features setActiveTabAction={setActiveTabAction} />}
+        </main>
+
+        <footer className="mt-2 pt-4 flex justify-center">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-[var(--ock-text-foreground-muted)] text-xs"
+            onClick={() => openUrl("https://base.org/builders/minikit")}
+          >
+            Built on Base with MiniKit
+          </Button>
           <div>
             <div className="flex items-center space-x-2">
               <Wallet className="z-10">
@@ -92,23 +110,6 @@ export default function App() {
               </Wallet>
             </div>
           </div>
-          <div>{saveFrameButton}</div>
-        </header>
-
-        <main className="flex-1">
-          {activeTab === "home" && <Home setActiveTab={setActiveTab} />}
-          {activeTab === "features" && <Features setActiveTab={setActiveTab} />}
-        </main>
-
-        <footer className="mt-2 pt-4 flex justify-center">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-[var(--ock-text-foreground-muted)] text-xs"
-            onClick={() => openUrl("https://base.org/builders/minikit")}
-          >
-            Built on Base with MiniKit
-          </Button>
         </footer>
       </div>
     </div>
