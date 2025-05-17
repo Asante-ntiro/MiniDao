@@ -535,6 +535,36 @@ export function StickyFooter({activeTab, setActiveTabAction}: StickyFooterProps)
                 ),
                 isActive: false,
                 },
+                { 
+                  id: "myProfile",
+                  label: "My Profile",
+                  icon: (
+                <svg
+                className="w-6 h-6"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                >
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-" /> 
+                </svg>
+                ),
+                isActive: false,
+                },
+                { 
+                  id: "proposals",
+                  label: "Proposals",
+                  icon: (
+                <svg
+                className="w-6 h-6"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                >
+                <path d="M16 2H8C4.691 2 2 4.691 2 8v12c0 3.309 2.691 6 6 6h8c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm0 2c2.273 0 4 1.727 4 4v12c0 2.273-1.727 4-4 4H8c-2.273 0-4-1.727-4-4V8c0-2.273 1.727-4 4-4h8zM12 6c1.105 0 2 .895 2 2s-.895 2-2 2-2-.895-2-2 .895-2 2-2zm0 4c-.552 0-1-.448-1-1s.448-1 1-1 1 .448 1 1-.448 1-1 1zm4 2H8v2h8v-2z"/> 
+                </svg>
+                ),
+                isActive: false,
+                },
                 ]
 {
   return (
