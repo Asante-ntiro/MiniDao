@@ -18,6 +18,9 @@ import {
   WalletDropdown,
   WalletDropdownDisconnect,
 } from "@coinbase/onchainkit/wallet";
+
+import { useAccount } from "wagmi";
+
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { Button } from "./components/DemoComponents";
 import { Icon } from "./components/DemoComponents";
@@ -30,6 +33,10 @@ export default function App() {
   const { setFrameReady, isFrameReady, context } = useMiniKit();
   const [frameAdded, setFrameAdded] = useState(false);
   const [activeTab, setActiveTabAction] = useState("home");
+
+  const { address } = useAccount();
+
+
 
   const addFrame = useAddFrame();
   const openUrl = useOpenUrl();
@@ -76,14 +83,29 @@ export default function App() {
     <div className="flex flex-col min-h-screen font-sans text-[var(--app-foreground)] mini-app-theme from-[var(--app-background)] to-[var(--app-gray)]">
       <div className="w-full max-w-md mx-auto px-4 py-3">
         <header className="flex justify-between items-center mb-3 h-11">
+          <div>
+          {address ? (
+              <Identity
+                address={address}
+                className="!bg-inherit p-0 [&>div]:space-x-2"
+              >
+                <Name className="text-inherit">
+                </Name>
+              </Identity>
+            ) : (
+              <div className="pt-1 pl-2 font-semibold text-gray-500 text-sm">
+                NOT CONNECTED
+              </div>
+            )}
 
+          </div>
           <div>{saveFrameButton}</div>
         </header>
 
         <main className="flex-1">
           {activeTab === "home" && <Home setActiveTabAction={setActiveTabAction} />}
           {activeTab === "features" && <Features setActiveTabAction={setActiveTabAction} />}
-          {activeTab === "myProfile" && <Profile setActiveTabAction={setActiveTabAction} />}
+          {activeTab === "myProfile" && <Profile />}
           {<StickyFooter setActiveTabAction={setActiveTabAction} activeTab={activeTab}/>}
         </main>
 

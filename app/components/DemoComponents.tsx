@@ -15,7 +15,7 @@ import {
   TransactionStatusLabel,
   TransactionStatus,
 } from "@coinbase/onchainkit/transaction";
-import { useNotification } from "@coinbase/onchainkit/minikit";
+import { useNotification, useMiniKit } from "@coinbase/onchainkit/minikit";
 
 type ButtonProps = {
   children: ReactNode;
@@ -361,50 +361,22 @@ function TransactionCard() {
 }
 
 
-type ProfileProps = {
-  setActiveTabAction: (tab: string) => void;
-};
 
-export function Profile({ setActiveTabAction }: FeaturesProps) {
+export function Profile() {
+  const { context } = useMiniKit();
+  const fid = context?.user?.fid;
+  const displayName = context?.user?.displayName;
   return (
     <div className="space-y-6 animate-fade-in">
       <Card title="My Profile">
-        <ul className="space-y-3 mb-4">
-          <li className="flex items-start">
-            <Icon name="check" className="text-[var(--app-accent)] mt-1 mr-2" />
-            <span className="text-[var(--app-foreground-muted)]">
-              Local Verification Mechanism
-            </span>
-          </li>
-          <li className="flex items-start">
-            <Icon name="check" className="text-[var(--app-accent)] mt-1 mr-2" />
-            <span className="text-[var(--app-foreground-muted)]">
-              Tiered Governance Rights
-            </span>
-          </li>
-          <li className="flex items-start">
-            <Icon name="check" className="text-[var(--app-accent)] mt-1 mr-2" />
-            <span className="text-[var(--app-foreground-muted)]">
-              Transparent Treasury Management
-            </span>
-          </li>
-          <li className="flex items-start">
-            <Icon name="check" className="text-[var(--app-accent)] mt-1 mr-2" />
-            <span className="text-[var(--app-foreground-muted)]">
-              Structured process for submitting, discussing, and voting on local initiatives
-            </span>
-          </li>
-          <li className="flex items-start">
-            <Icon name="check" className="text-[var(--app-accent)] mt-1 mr-2" />
-            <span className="text-[var(--app-foreground-muted)]">
-              Mobile-First Interface
-            </span>
-          </li>
-
-        </ul>
-        <Button variant="outline" onClick={() => setActiveTabAction("home")}>
-          Back to Home
-        </Button>
+      {fid && displayName ? (
+        <div>
+          <p><strong>FID:</strong> {fid}</p>
+          <p><strong>Display Name:</strong> {displayName}</p>
+        </div>
+      ) : (
+        <p>Loading user data...</p>
+      )}
       </Card>
     </div>
   );
