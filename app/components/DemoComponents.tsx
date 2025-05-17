@@ -15,7 +15,7 @@ import {
   TransactionStatusLabel,
   TransactionStatus,
 } from "@coinbase/onchainkit/transaction";
-import { useNotification } from "@coinbase/onchainkit/minikit";
+import { useNotification, useMiniKit } from "@coinbase/onchainkit/minikit";
 
 type ButtonProps = {
   children: ReactNode;
@@ -286,7 +286,6 @@ export function Icon({ name, size = "md", className = "" }: IconProps) {
 }
 
 
-
 function TransactionCard() {
   const { address } = useAccount();
 
@@ -362,13 +361,36 @@ function TransactionCard() {
 }
 
 
+
+export function Profile() {
+  const { context } = useMiniKit();
+  const fid = context?.user?.fid;
+  const displayName = context?.user?.displayName;
+  return (
+    <div className="space-y-6 animate-fade-in">
+      <Card title="My Profile">
+      {fid && displayName ? (
+        <div>
+          <p><strong>FID:</strong> {fid}</p>
+          <p><strong>Display Name:</strong> {displayName}</p>
+        </div>
+      ) : (
+        <p>Loading user data...</p>
+      )}
+      </Card>
+    </div>
+  );
+}
+
+
+
+
 type TabItemProps = { 
   label: string,
   icon: React.ReactNode,
   isActive: boolean,
   onClick: () => void,
 }
-
 
 const TabItem = ( { label, icon, isActive, onClick }: TabItemProps) => {
   return (
