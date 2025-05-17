@@ -467,3 +467,101 @@ function TransactionCard() {
     </Card>
   );
 }
+
+
+type TabItemProps = { 
+  label: string,
+  icon: React.ReactNode,
+  isActive: boolean,
+  onClick: () => void,
+}
+
+
+const TabItem = ( { label, icon, isActive, onClick }: TabItemProps) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex flex-col items-center justify-center flex-1 py-2 ${
+        isActive ? "text-purple-600" : "text-gray-400"
+      }`}
+    >
+      <div className="mb-1">{icon}</div>
+      <span className={`text-xs font-medium ${isActive ? "font-semibold" : ""}`}>
+        {label}
+      </span>
+    </button>
+  );
+};
+
+type StickyFooterProps = {
+  activeTab: string;
+  setActiveTabAction: (tabId: string) => void;
+
+}
+
+export function StickyFooter({activeTab, setActiveTabAction}: StickyFooterProps) {
+
+  const tabs = [
+                  { 
+                    id: "home",
+                    label: "Home",
+                    icon: (
+                  <svg
+                  className="w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  >
+                  <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
+                  </svg>
+                  ),
+
+                  isActive: true,
+                  
+                }
+    ,
+                { 
+                  id: "features",
+                  label: "Features",
+                  icon: (
+                <svg
+                className="w-6 h-6"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                >
+                <path d="M3 9h4V5H3v4zm0 5h4v-4H3v4zm5 0h4v-4H8v4zm5 0h4v-4h-4v4zM8 9h4V5H8v4zm5-4v4h4V5h-4z" />
+                </svg>
+                ),
+                isActive: false,
+                },
+                ]
+{
+  return (
+    <footer className="fixed bottom-0 left-0 right-0 bg-[var(--app-background)] border-t border-[var(--app-card-border)] p-4">
+      <div className="flex justify-center">
+        {tabs.map((tab) => (
+            <TabItem
+            label={tab.label}
+            icon={tab.icon}
+            isActive={activeTab === tab.id}
+            onClick={() => setActiveTabAction(tab.id)}
+          />
+
+        ))}
+        <p className="text-sm text-[var(--app-foreground-muted)]">
+          Powered by{" "}
+          <a
+            href="https://onchainkit.xyz"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#0052FF] hover:underline"
+          >
+            OnchainKit
+          </a>
+        </p>
+      </div>
+    </footer>
+  );
+}
+}
