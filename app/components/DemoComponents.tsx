@@ -286,7 +286,6 @@ export function Icon({ name, size = "md", className = "" }: IconProps) {
 }
 
 
-
 function TransactionCard() {
   const { address } = useAccount();
 
@@ -362,13 +361,64 @@ function TransactionCard() {
 }
 
 
+type ProfileProps = {
+  setActiveTabAction: (tab: string) => void;
+};
+
+export function Profile({ setActiveTabAction }: FeaturesProps) {
+  return (
+    <div className="space-y-6 animate-fade-in">
+      <Card title="My Profile">
+        <ul className="space-y-3 mb-4">
+          <li className="flex items-start">
+            <Icon name="check" className="text-[var(--app-accent)] mt-1 mr-2" />
+            <span className="text-[var(--app-foreground-muted)]">
+              Local Verification Mechanism
+            </span>
+          </li>
+          <li className="flex items-start">
+            <Icon name="check" className="text-[var(--app-accent)] mt-1 mr-2" />
+            <span className="text-[var(--app-foreground-muted)]">
+              Tiered Governance Rights
+            </span>
+          </li>
+          <li className="flex items-start">
+            <Icon name="check" className="text-[var(--app-accent)] mt-1 mr-2" />
+            <span className="text-[var(--app-foreground-muted)]">
+              Transparent Treasury Management
+            </span>
+          </li>
+          <li className="flex items-start">
+            <Icon name="check" className="text-[var(--app-accent)] mt-1 mr-2" />
+            <span className="text-[var(--app-foreground-muted)]">
+              Structured process for submitting, discussing, and voting on local initiatives
+            </span>
+          </li>
+          <li className="flex items-start">
+            <Icon name="check" className="text-[var(--app-accent)] mt-1 mr-2" />
+            <span className="text-[var(--app-foreground-muted)]">
+              Mobile-First Interface
+            </span>
+          </li>
+
+        </ul>
+        <Button variant="outline" onClick={() => setActiveTabAction("home")}>
+          Back to Home
+        </Button>
+      </Card>
+    </div>
+  );
+}
+
+
+
+
 type TabItemProps = { 
   label: string,
   icon: React.ReactNode,
   isActive: boolean,
   onClick: () => void,
 }
-
 
 const TabItem = ( { label, icon, isActive, onClick }: TabItemProps) => {
   return (
