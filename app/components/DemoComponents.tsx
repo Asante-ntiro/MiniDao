@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, useCallback, useMemo, useState } from "react";
+import { type ReactNode, useCallback, useMemo } from "react";
 import { useAccount } from "wagmi";
 import {
   Transaction,
@@ -169,7 +169,7 @@ export function Home({ setActiveTabAction }: HomeProps) {
     <div className="space-y-6 animate-fade-in">
       <Card title="Mini DAO">
         <p className="text-[var(--app-foreground-muted)] mb-4">
-          Fund Local, Vote Together: Dar's Community Treasury, Powered by Your Voice
+          Fund Local, Vote Together: Dar`&apos:`s Community Treasury, Powered by Your Voice
         </p>
         <Button
           onClick={() => setActiveTabAction("features")}
@@ -385,7 +385,7 @@ export function Profile() {
 
 
 
-type TabItemProps = { 
+type TabItemProps = {
   label: string,
   icon: React.ReactNode,
   isActive: boolean,
@@ -485,8 +485,9 @@ export function StickyFooter({activeTab, setActiveTabAction}: StickyFooterProps)
   return (
     <footer className="fixed bottom-0 left-0 right-0 bg-[var(--app-background)] border-t border-[var(--app-card-border)] p-4">
       <div className="flex justify-center">
-        {tabs.map((tab) => (
+        {tabs.map((tab, index) => (
             <TabItem
+            key={tab.id || index}
             label={tab.label}
             icon={tab.icon}
             isActive={activeTab === tab.id}
