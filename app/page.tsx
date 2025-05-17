@@ -23,7 +23,7 @@ import { Button } from "./components/DemoComponents";
 import { Icon } from "./components/DemoComponents";
 import { Home } from "./components/DemoComponents";
 import { Features } from "./components/DemoComponents";
-import { StickyFooter } from "./components/DemoComponents";
+// import { StickyFooter } from "./components/DemoComponents";
 
 export default function App() {
   const { setFrameReady, isFrameReady, context } = useMiniKit();
@@ -82,7 +82,7 @@ export default function App() {
         <main className="flex-1">
           {activeTab === "home" && <Home setActiveTabAction={setActiveTabAction} />}
           {activeTab === "features" && <Features setActiveTabAction={setActiveTabAction} />}
-          {<StickyFooter setActiveTabAction={setActiveTabAction} activeTab={activeTab}/>}
+          {/* {<StickyFooter setActiveTabAction={setActiveTabAction} activeTab={activeTab}/>} */}
         </main>
 
         <footer className="mt-2 pt-4 flex justify-center">
