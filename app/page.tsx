@@ -28,6 +28,7 @@ import { Home } from "./components/DemoComponents";
 import { Features } from "./components/DemoComponents";
 import { StickyFooter } from "./components/DemoComponents";
 import { Profile } from "./components/DemoComponents";
+import { Proposals } from "./components/DemoComponents";
 
 export default function App() {
   const { setFrameReady, isFrameReady, context } = useMiniKit();
@@ -106,6 +107,7 @@ export default function App() {
           {activeTab === "home" && <Home setActiveTabAction={setActiveTabAction} />}
           {activeTab === "features" && <Features setActiveTabAction={setActiveTabAction} />}
           {activeTab === "myProfile" && <Profile />}
+          {activeTab === "proposals" && <Proposals />}
           {<StickyFooter setActiveTabAction={setActiveTabAction} activeTab={activeTab}/>}
         </main>
 
