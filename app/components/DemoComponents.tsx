@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { type ReactNode, useCallback, useMemo } from "react";
 import { useAccount } from "wagmi";
 import {
@@ -499,4 +500,203 @@ export function StickyFooter({activeTab, setActiveTabAction}: StickyFooterProps)
     </footer>
   );
 }
+}
+
+
+const dummyProposals = [
+  {
+    id: 1,
+    title: "Fund Local Playground Renovation",
+    creator: "0xA1b2...eF34",
+    description:
+      "Proposal to allocate 2 ETH from the treasury to renovate the neighborhood playground, including new equipment and safety upgrades.",
+    status: "active",
+    yesVotes: 42,
+    noVotes: 10,
+    endTime: Date.now() + 1000 * 60 * 60 * 24, // 24 hours from now
+  },
+  {
+    id: 2,
+    title: "Sponsor Community Art Festival",
+    creator: "0xB3c4...dE56",
+    description:
+      "Proposal to sponsor the annual community art festival with a grant of 1 ETH for local artists and event logistics.",
+    status: "past",
+    yesVotes: 38,
+    noVotes: 3,
+    endTime: Date.now() - 1000 * 60 * 60 * 5, // 5 hours ago
+  },
+  {
+    id: 3,
+    title: "Upgrade DAO Website",
+    creator: "0xC5d6...fA78",
+    description:
+      "Proposal to allocate 0.5 ETH for a redesign and feature upgrade of the DAO website, improving accessibility and mobile UX.",
+    status: "active",
+    yesVotes: 14,
+    noVotes: 2,
+    endTime: Date.now() + 1000 * 60 * 60 * 5, // 5 hours from now
+  },
+];
+
+
+// Helper to format time remaining
+function formatTimeRemaining(endTime: number) {
+  const diff = endTime - Date.now();
+  if (diff <= 0) return "Voting ended";
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  return `${hours}h ${mins}m left`;
+}
+
+export function Proposals() {
+  // State for expanded proposal details
+  const [openProposalId, setOpenProposalId] = useState<number | null>(null);
+  // State for vote status per proposal (id: "yes" | "no" | null)
+  const [votes, setVotes] = useState<Record<number, "yes" | "no" | null>>({});
+  // State for showing vote confirmation
+  const [showConfirm, setShowConfirm] = useState<Record<number, boolean>>({});
+
+  // Separate active and past proposals
+  const activeProposals = dummyProposals.filter((p) => p.status === "active");
+  const pastProposals = dummyProposals.filter((p) => p.status === "past");
+
+  // Handle voting (dummy logic)
+  const handleVote = (proposalId: number, vote: "yes" | "no") => {
+    setVotes((prev) => ({ ...prev, [proposalId]: vote }));
+    setShowConfirm((prev) => ({ ...prev, [proposalId]: true }));
+    // Hide confirmation after 1.5s
+    setTimeout(() => {
+      setShowConfirm((prev) => ({ ...prev, [proposalId]: false }));
+    }, 1500);
+  };
+
+
+
+function ProposalCard({ proposal }: { proposal: typeof dummyProposals[0] }) {
+    return (
+      <Card
+        className="mb-4 cursor-pointer"
+        onClick={() => setOpenProposalId(proposal.id === openProposalId ? null : proposal.id)}
+        title={proposal.title}
+      >
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+          <div>
+            <div className="text-xs text-[var(--app-foreground-muted)] mb-1">
+              Creator: <span className="font-mono">{proposal.creator}</span>
+            </div>
+            <div className="text-xs">
+              Status: {proposal.status === "active" ? (
+                <span className="text-green-600 font-medium">Active</span>
+              ) : (
+                <span className="text-gray-400">Past</span>
+              )}
+            </div>
+          </div>
+          <div className="text-xs text-right">
+            {proposal.status === "active"
+              ? formatTimeRemaining(proposal.endTime)
+              : "Voting ended"}
+          </div>
+        </div>
+        {openProposalId === proposal.id && (
+          <ProposalDetails proposal={proposal} />
+        )}
+      </Card>
+    );
+}
+
+function ProposalDetails({ proposal }: { proposal: typeof dummyProposals[0] }) {
+  const voted = votes[proposal.id];
+  const confirmed = showConfirm[proposal.id];
+  const totalVotes = proposal.yesVotes + proposal.noVotes;
+  const yesPercent = totalVotes ? Math.round((proposal.yesVotes / totalVotes) * 100) : 0;
+  const noPercent = totalVotes ? Math.round((proposal.noVotes / totalVotes) * 100) : 0;
+  return (
+    <div className="mt-4 border-t pt-4">
+      <div className="mb-2 text-[var(--app-foreground)]"><b>Description:</b></div>
+      <div className="mb-4 text-[var(--app-foreground-muted)] text-sm">{proposal.description}</div>
+      <div className="mb-4">
+        <div className="flex justify-between text-xs">
+          <span>Yes: <b>{proposal.yesVotes}</b> ({yesPercent}%)</span>
+          <span>No: <b>{proposal.noVotes}</b> ({noPercent}%)</span>
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-2 mt-2 mb-2 flex">
+          <div
+            className="bg-green-400 h-2 rounded-l-full"
+            style={{ width: `${yesPercent}%` }}
+          />
+          <div
+            className="bg-red-400 h-2 rounded-r-full"
+            style={{ width: `${noPercent}%` }}
+          />
+        </div>
+      </div>
+      {proposal.status === "active" && !voted && (
+        <div className="flex gap-3">
+          <Button
+            variant="primary"
+            size="md"
+            onClick={() => {
+              handleVote(proposal.id, "yes");
+            }}
+          >
+            Yes
+          </Button>
+          <Button
+            variant="outline"
+            size="md"
+            onClick={() => {
+              handleVote(proposal.id, "no");
+            }}
+          >
+            No
+          </Button>
+        </div>
+      )}
+      {proposal.status === "active" && voted && (
+        <div className="mt-2">
+          {confirmed ? (
+            <span className="text-green-600 font-medium">Vote submitted!</span>
+          ) : (
+            <span className="text-[var(--app-foreground-muted)]">You voted <b>{voted.toUpperCase()}</b></span>
+          )}
+        </div>
+      )}
+      {proposal.status === "past" && (
+        <div className="mt-2 text-gray-400">Voting ended</div>
+      )}
+      <div className="mt-4 text-xs text-right text-gray-400">
+        {proposal.status === "active"
+          ? formatTimeRemaining(proposal.endTime)
+          : "Voting ended"}
+      </div>
+    </div>
+  );
+}
+
+return (
+  <div className="space-y-6 animate-fade-in">
+    {/* Active Proposals */}
+    <div>
+      <div className="text-lg font-semibold mb-3">Active Proposals</div>
+      {activeProposals.length === 0 && (
+        <div className="text-[var(--app-foreground-muted)] mb-4">No active proposals.</div>
+      )}
+      {activeProposals.map((proposal) => (
+        <ProposalCard key={proposal.id} proposal={proposal} />
+      ))}
+    </div>
+    {/* Past Proposals */}
+    <div>
+      <div className="text-lg font-semibold mb-3 mt-6">Past Proposals</div>
+      {pastProposals.length === 0 && (
+        <div className="text-[var(--app-foreground-muted)] mb-4">No past proposals.</div>
+      )}
+      {pastProposals.map((proposal) => (
+        <ProposalCard key={proposal.id} proposal={proposal} />
+      ))}
+    </div>
+  </div>
+);
 }
