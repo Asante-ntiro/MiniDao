@@ -1,108 +1,52 @@
-# MiniKit Template
+# MiniDAO - Decentralized Governance Platform
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-onchain --mini`](), configured with:
+## Overview
 
-- [MiniKit](https://docs.base.org/builderkits/minikit/overview)
-- [OnchainKit](https://www.base.org/builders/onchainkit)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Next.js](https://nextjs.org/docs)
+MiniDAO is a decentralized autonomous organization (DAO) platform built with MiniKit, enabling decentralized governance through proposal creation and voting. The application provides a seamless interface for community members to participate in decision-making processes through on-chain voting mechanisms.
 
-## Getting Started
+## Features
 
-1. Install dependencies:
-```bash
-npm install
-# or
-yarn install
-# or
-pnpm install
-# or
-bun install
-```
+### Proposal System
+- **Create Proposals**: Community members can submit proposals for consideration
+- **Vote on Proposals**: Cast yes/no votes on active proposals
+- **Proposal Tracking**: Monitor voting progress in real-time
+- **Time-based Voting**: Proposals have specific voting windows with countdown timers
 
-2. Verify environment variables, these will be set up by the `npx create-onchain --mini` command:
+### User Interface
+- **Responsive Design**: Optimized for both mobile and desktop experiences
+- **Tabbed Navigation**: Easy access to Home, Features, Proposals, and Profile sections
+- **Dark/Light Mode**: Theme support through OnchainKit
 
-You can regenerate the FARCASTER Account Association environment variables by running `npx create-onchain --manifest` in your project directory.
+### Web3 Integration
+- **Wallet Connection**: Seamless integration with Web3 wallets using Wagmi
+- **Transaction Handling**: Streamlined transaction flow with status updates
+- **Blockchain Interaction**: On-chain voting and proposal management
+- **Farcaster Integration**: Frame metadata and account association
 
-The environment variables enable the following features:
+## Technical Stack
 
-- Frame metadata - Sets up the Frame Embed that will be shown when you cast your frame
-- Account association - Allows users to add your frame to their account, enables notifications
-- Redis API keys - Enable Webhooks and background notifications for your application by storing users notification details
+- **Frontend Framework**: [Next.js](https://nextjs.org) with TypeScript
+- **UI Framework**: [Tailwind CSS](https://tailwindcss.com)
+- **Web3 Libraries**:
+  - [MiniKit](https://docs.base.org/builderkits/minikit/overview) - Frame-optimized UI components
+  - [OnchainKit](https://www.base.org/builders/onchainkit) - Transaction handling and notifications
+  - [Wagmi](https://wagmi.sh) - React hooks for Ethereum
+- **Notification System**: Redis-backed notification system using Upstash
 
-```bash
-# Shared/OnchainKit variables
-NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME=
-NEXT_PUBLIC_URL=
-NEXT_PUBLIC_ICON_URL=
-NEXT_PUBLIC_ONCHAINKIT_API_KEY=
+## Usage
 
-# Frame metadata
-FARCASTER_HEADER=
-FARCASTER_PAYLOAD=
-FARCASTER_SIGNATURE=
-NEXT_PUBLIC_APP_ICON=
-NEXT_PUBLIC_APP_SUBTITLE=
-NEXT_PUBLIC_APP_DESCRIPTION=
-NEXT_PUBLIC_APP_SPLASH_IMAGE=
-NEXT_PUBLIC_SPLASH_BACKGROUND_COLOR=
-NEXT_PUBLIC_APP_PRIMARY_CATEGORY=
-NEXT_PUBLIC_APP_HERO_IMAGE=
-NEXT_PUBLIC_APP_TAGLINE=
-NEXT_PUBLIC_APP_OG_TITLE=
-NEXT_PUBLIC_APP_OG_DESCRIPTION=
-NEXT_PUBLIC_APP_OG_IMAGE=
+### Creating a Proposal
+1. Connect your Web3 wallet
+2. Navigate to the Proposals tab
+3. Click "Create Proposal"
+4. Fill in proposal details and submit
 
-# Redis config
-REDIS_URL=
-REDIS_TOKEN=
-```
+### Voting on Proposals
+1. Browse active proposals in the Proposals tab
+2. Click on a proposal to view details
+3. Cast your vote (Yes/No)
+4. Confirm transaction in your wallet
 
-3. Start the development server:
-```bash
-npm run dev
-```
-
-## Template Features
-
-### Frame Configuration
-- `.well-known/farcaster.json` endpoint configured for Frame metadata and account association
-- Frame metadata automatically added to page headers in `layout.tsx`
-
-### Background Notifications
-- Redis-backed notification system using Upstash
-- Ready-to-use notification endpoints in `api/notify` and `api/webhook`
-- Notification client utilities in `lib/notification-client.ts`
-
-### Theming
-- Custom theme defined in `theme.css` with OnchainKit variables
-- Pixel font integration with Pixelify Sans
-- Dark/light mode support through OnchainKit
-
-### MiniKit Provider
-The app is wrapped with `MiniKitProvider` in `providers.tsx`, configured with:
-- OnchainKit integration
-- Access to Frames context
-- Sets up Wagmi Connectors
-- Sets up Frame SDK listeners
-- Applies Safe Area Insets
-
-## Customization
-
-To get started building your own frame, follow these steps:
-
-1. Remove the DemoComponents:
-   - Delete `components/DemoComponents.tsx`
-   - Remove demo-related imports from `page.tsx`
-
-2. Start building your Frame:
-   - Modify `page.tsx` to create your Frame UI
-   - Update theme variables in `theme.css`
-   - Adjust MiniKit configuration in `providers.tsx`
-
-3. Add your frame to your account:
-   - Cast your frame to see it in action
-   - Share your frame with others to start building your community
 
 ## Learn More
 
@@ -110,3 +54,8 @@ To get started building your own frame, follow these steps:
 - [OnchainKit Documentation](https://docs.base.org/builderkits/onchainkit/getting-started)
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [Base Chain Documentation](https://docs.base.org/)
+
+## License
+
+MIT
