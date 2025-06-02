@@ -170,7 +170,7 @@ export function Home({ setActiveTabAction }: HomeProps) {
     <div className="space-y-6 animate-fade-in">
       <Card title="Mini DAO">
         <p className="text-[var(--app-foreground-muted)] mb-4">
-          Fund Local, Vote Together: Dar`&apos:`s Community Treasury, Powered by Your Voice
+          Fund Local, Vote Together: Dar&apos;s Community Treasury, Powered by Your Voice
         </p>
         <Button
           onClick={() => setActiveTabAction("features")}

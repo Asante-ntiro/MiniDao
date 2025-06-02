@@ -22,13 +22,13 @@ import {
 import { useAccount } from "wagmi";
 
 import { useEffect, useMemo, useState, useCallback } from "react";
-import { Button } from "./components/DemoComponents";
-import { Icon } from "./components/DemoComponents";
-import { Home } from "./components/DemoComponents";
-import { Features } from "./components/DemoComponents";
-import { StickyFooter } from "./components/DemoComponents";
-import { Profile } from "./components/DemoComponents";
-import { Proposals } from "./components/DemoComponents";
+import { Button } from "./components/Components";
+import { Icon } from "./components/Components";
+import { Home } from "./components/Components";
+import { Features } from "./components/Components";
+import { StickyFooter } from "./components/Components";
+import { Profile } from "./components/Components";
+import { Proposals } from "./components/Components";
 
 export default function App() {
   const { setFrameReady, isFrameReady, context } = useMiniKit();
